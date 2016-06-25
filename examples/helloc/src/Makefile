@@ -1,6 +1,6 @@
 
-ifneq ($(shell readlink -e ../.nct),)
-include ../.nct
+ifneq ($(shell readlink -e ../.conf),)
+include ../.conf
 endif
 
 TARGET=helloc

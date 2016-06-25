@@ -9,22 +9,23 @@
 
 PROG_NAME=`basename $0`
 
-OUTPUT_FILE=.nct.h
-NCT_FILE=.nct
+OUTPUT_FILE=.conf.h
+NCT_FILE=.conf
 NCT_FRAG_FILE=
 NCT_IN_FILE=
 NOMENU_MODE=update
+export NCT_PREFIX=NCT_
 
 usage() {
 	cat <<EOF
 Usage:
-	$PROG_NAME [nomenu] [-m|--mode {update|alldef|allno|allyes|random}] [-c|--config config_file] [-i|--input config_input_file]
+	$PROG_NAME [nomenu] [-m|--mode {update|alldef|allno|allyes|random}] [-c|--config config_file] [-i|--input config_input_file] [-p|--prefix prefix_str]
 
-	$PROG_NAME {menu|menu-n|menu-g|menu-q} [-c|--config config_file] [-i|--input config_input_file]
+	$PROG_NAME {menu|menu-n|menu-g|menu-q} [-c|--config config_file] [-i|--input config_input_file] [-p|--prefix prefix_str]
 
-	$PROG_NAME gen [-c|--config config_file] [-o|--output output_file]
+	$PROG_NAME gen [-c|--config config_file] [-o|--output output_file] [-p|--prefix prefix_str]
 
-	$PROG_NAME merge [-c|--config config_file] [-f|--fragment fragment_config_file]
+	$PROG_NAME merge [-c|--config config_file] [-f|--fragment fragment_config_file] [-p|--prefix prefix_str]
 
 	$PROG_NAME help
 
@@ -34,7 +35,7 @@ EOF
 #	man -P cat nct
 }
 
-opts=`getopt -o o:c:i:f:m:h --long mode:,output:,config:,input:,fragment:,help -n $PROG_NAME -- "$@"`
+opts=`getopt -o o:c:i:f:m:p:h --long mode:,output:,config:,prefix:,input:,fragment:,help -n $PROG_NAME -- "$@"`
 if [ $? != 0 ] ; then exit 1; fi
 eval set -- "$opts"
 
@@ -63,6 +64,11 @@ while true; do
 
 	-f | --fragment)
 		NCT_FRAG_FILE=$2
+		shift 2
+		;;
+
+	-p | --prefix)
+		export NCT_PREFIX=$2
 		shift 2
 		;;
 
@@ -123,15 +129,14 @@ fi
 
 export PATH=/usr/lib/ncrux/nct:$PATH
 export NCT_CONFIG=$NCT_FILE
-#export NCT_=NCT_
 
-function lookup_nct_in()
+function lookup_nct_input()
 {
 	local MYDIR=
 	while true; do
-		if [ -f ${MYDIR}nct.in ]; then
-			echo -n ${MYDIR}nct.in
-			#readlink -e -n ${MYDIR}nct.in
+		if [ -f ${MYDIR}input.nct ]; then
+			echo -n ${MYDIR}input.nct
+			#readlink -e -n ${MYDIR}input.nct
 			return
 		fi
 		MYDIR=${MYDIR}../
@@ -150,9 +155,10 @@ help)
    	;;
 nomenu|menu|menu-n|menu-g|menu-q)
 	if [ "$NCT_IN_FILE" == "" ]; then
-		NCT_IN_FILE=`lookup_nct_in`
+		NCT_IN_FILE=`lookup_nct_input`
 		if [ "$NCT_IN_FILE" == "" ]; then
-			echo No usable configuration input file nct.in found
+			echo No usable configuration input file input.nct found
+			exit 1
 		fi
 		echo Using configuration input file: \"$NCT_IN_FILE\"
 	fi

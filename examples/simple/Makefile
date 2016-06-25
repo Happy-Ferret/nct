@@ -1,42 +1,46 @@
 #
 # Simple demonstration of nCrux Configuration Tool (nct)
 #
-CONF_FRAGMENT_FILE=frag.nct
+CONF_FRAGMENT_FILE=frag.conf
+NCT=nct
+#NCT=nct --prefix "CONFIG_"
 
 all: merge test-all
 
-.nct:
-	nct
+.PHONY: .conf
 
-merge: .nct
-	nct merge -f $(CONF_FRAGMENT_FILE)
+.conf:
+	$(NCT)
+
+merge: .conf
+	$(NCT) merge -f $(CONF_FRAGMENT_FILE)
 
 gen-all: h pl py xml php go
 
 h:
-	nct gen -o simple_nct.h
+	$(NCT) gen -o simple_nct.h
 
 pl:
-	nct gen -o simple_nct.pl
+	$(NCT) gen -o simple_nct.pl
 
 py:
-	nct gen -o simple_nct.py
+	$(NCT) gen -o simple_nct.py
 
 xml:
-	nct gen -o simple_nct.xml
+	$(NCT) gen -o simple_nct.xml
 
 php:
-	nct gen -o simple_nct.php
+	$(NCT) gen -o simple_nct.php
 
 go:
 	-mkdir -p simple_nct
-	nct gen -o simple_nct/simple_nct.go
+	$(NCT) gen -o simple_nct/simple_nct.go
 
 rb:
-	nct gen -o simple_nct.rb
+	$(NCT) gen -o simple_nct.rb
 
 js:
-	nct gen -o simple_nct.js
+	$(NCT) gen -o simple_nct.js
 
 test-all: test-h test-pl test-py test-xml test-php test-go test-rb test-js
 
@@ -67,7 +71,7 @@ test-js: js
 
 
 clean:
-	rm -f .nct .nct.old
+	rm -f .conf .conf.old
 	rm -f simple_nct.h test
 	rm -f simple_nct.pl
 	rm -f simple_nct.xml

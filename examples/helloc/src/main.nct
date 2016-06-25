@@ -32,8 +32,8 @@ config FEATURE2_MESSAGE
 endif
 
 # "source" uses path relative to root file
-source "src/feature3/nct.in"
+source "src/feature3/feature3.nct"
 
 # "include" uses path relative to this file
-include "feature4/nct.in"
+include "feature4/feature4.nct"
 

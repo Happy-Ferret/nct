@@ -9,12 +9,13 @@
 # Generates PHP file with key/value pairs
 #
 
-awk '
+awk -v NCT_PREFIX="$NCT_PREFIX" -v MATCH_EXP="^$NCT_PREFIX" '
 BEGIN {
 	add_quotes_to_int = 0;
 	add_quotes_to_hex = 0;
 	convert_hex_to_int = 0;
-	printf "<?php\n#\n#\n# Automatically generated file using nCrux Configuration Tool (nct).\n# DO NOT EDIT.\n#\n#\n";
+	printf "<?php\n#\n#\n# Automatically generated file using nCrux Configuration Tool (nct).\n";
+	printf "# http://www.ncrux.com/project/nct/\n# DO NOT EDIT.\n#\n#\n";
 	print "$nct = array(\n";
 }
 
@@ -29,12 +30,12 @@ END {
 /^#/ { next; }
 
 # Split valid lines into two words: w1 and w2
-/^NCT_/ {
+$0 ~ MATCH_EXP {
 
 	i = index($0, "=");
 
-	# Strip off NCT_ prefix
-	w1 = substr($0, 5, i-5);
+	# Strip off NCT_PREFIX
+	w1 = substr($0, length(NCT_PREFIX)+1, i-length(NCT_PREFIX)-1);
 	w2 = substr($0, i+1);
 
 	if (w2 ~ /^0x/) {
@@ -68,7 +69,7 @@ END {
 }
 
 # PHP File with key/value pairs
-/^NCT_/ {
+$0 ~ MATCH_EXP {
 	print "\t\"" w1 "\" => " w2 ",";
 	next;
 }

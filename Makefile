@@ -13,6 +13,7 @@ install: all
 	$(MAKE) -C doc install
 	@mkdir -p $(DESTDIR)/usr/share/doc/nct/
 	cp -ar examples $(DESTDIR)/usr/share/doc/nct/
+	chown -R root.root $(DESTDIR)/usr/share/doc/nct/
 	@$(MAKE) -C $(DESTDIR)/usr/share/doc/nct/examples clean
 
 deb: install

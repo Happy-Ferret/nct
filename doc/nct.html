@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
 <title>nct</title>
-<meta name="date" content="13 Jun 2016" />
+<meta name="date" content="25 Jun 2016" />
 <style type="text/css">
 
 /*
@@ -347,7 +347,7 @@ ul.auto-toc {
 <col class="docinfo-content" />
 <tbody valign="top">
 <tr><th class="docinfo-name">Date:</th>
-<td>13 Jun 2016</td></tr>
+<td>25 Jun 2016</td></tr>
 <tr><th class="docinfo-name">Version:</th>
 <td>0.2.0</td></tr>
 <tr class="field"><th class="docinfo-name">Manual section:</th><td class="field-body">1</td>
@@ -358,10 +358,10 @@ ul.auto-toc {
 </table>
 <div class="section" id="synopsis">
 <h1>SYNOPSIS</h1>
-<p>nct [nomenu] [-m|--mode {update|alldef|allno|allyes|random}] [-c|--config config_file] [-i|--input config_input_file]</p>
-<p>nct {menu|menu-n|menu-g|menu-q} [-c|--config config_file] [-i|--input config_input_file]</p>
-<p>nct gen [-c|--config config_file] [-o|--output output_file]</p>
-<p>nct merge [-c|--config config_file] [-f|--fragment fragment_config_file]</p>
+<p>nct [nomenu] [-m|--mode {update|alldef|allno|allyes|random}] [-c|--config config_file] [-i|--input config_input_file] [-p|--prefix prefix_str]</p>
+<p>nct {menu|menu-n|menu-g|menu-q} [-c|--config config_file] [-i|--input config_input_file] [-p|--prefix prefix_str]</p>
+<p>nct gen [-c|--config config_file] [-o|--output output_file] [-p|--prefix prefix_str]</p>
+<p>nct merge [-c|--config config_file] [-f|--fragment fragment_config_file] [-p|--prefix prefix_str]</p>
 <p>nct help</p>
 </div>
 <div class="section" id="description">
@@ -397,15 +397,19 @@ ul.auto-toc {
 <tr><td class="option-group" colspan="2">
 <kbd><span class="option">-c <var>config_file</var></span>, <span class="option">--config <var>config_file</var></span></kbd></td>
 </tr>
-<tr><td>&nbsp;</td><td>File containing current selection of configuration settings. The file &quot;.nct&quot; is assumed if this option is not given. In case if user saves the modified settings, this file gets overwritten with new settings.</td></tr>
+<tr><td>&nbsp;</td><td>File containing current selection of configuration settings. The file &quot;.conf&quot; is assumed if this option is not given. In case if user saves the modified settings, this file gets overwritten with new settings.</td></tr>
 <tr><td class="option-group" colspan="2">
 <kbd><span class="option">-i <var>config_input_file</var></span>, <span class="option">--input <var>config_input_file</var></span></kbd></td>
 </tr>
-<tr><td>&nbsp;</td><td>Top level configuration input file used for menu interface. The file &quot;nct.in&quot; is assumed if this option is not given.</td></tr>
+<tr><td>&nbsp;</td><td>Top level configuration input file used for menu interface. The file &quot;input.nct&quot; is assumed if this option is not given.</td></tr>
 <tr><td class="option-group" colspan="2">
 <kbd><span class="option">-f <var>fragment_config_file</var></span>, <span class="option">--fragment <var>fragment_config_file</var></span></kbd></td>
 </tr>
 <tr><td>&nbsp;</td><td>File containing partial configuration settings that need to be merged into main configuration file provided with option &quot;-c&quot;.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-p <var>prefix_str</var></span>, <span class="option">--prefix <var>prefix_str</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Prefix to be used for each configuration variable. Default is &quot;<a class="reference internal" href="#nct">NCT</a>&quot;.</td></tr>
 <tr><td class="option-group" colspan="2">
 <kbd><span class="option">-o <var>output_file</var></span>, <span class="option">--output <var>output_file</var></span></kbd></td>
 </tr>
@@ -429,77 +433,86 @@ ul.auto-toc {
 </div>
 <div class="section" id="examples">
 <h1>EXAMPLES</h1>
-<p>Overwrite existing configuration file &quot;.nct&quot; with all default values selected for all configuration
+<dl class="docutils">
+<dt>Update existing configuration file &quot;.conf&quot;, if available, by retaining existing configuration</dt>
+<dd><p class="first">settings and selecting defaults for any new settings:</p>
+<blockquote class="last">
+nct
+(or)
+nct -m update</blockquote>
+</dd>
+</dl>
+<p>Overwrite existing configuration file &quot;.conf&quot; with all default values selected for all configuration
 elements:</p>
 <pre class="literal-block">
 nct -m alldef
 </pre>
-<p>Retain existing configuration of file &quot;.nct&quot; and select default values for all new configuration element:</p>
+<p>Retain existing configuration of file &quot;.conf&quot; and select default values for all new configuration element:</p>
 <pre class="literal-block">
 nct
 (or)
 nct -m update
 </pre>
-<p>Overwrite existing configuration file &quot;.nct&quot; with all random values selected for all configuration
+<p>Overwrite existing configuration file &quot;.conf&quot; with all random values selected for all configuration
 elements:</p>
 <pre class="literal-block">
 nct -m random
 </pre>
-<p>Load configuration settings from .nct file if present and display ncurses-based
-menu based on default configuration input file &quot;nct.in&quot; and write the
-changes back to .nct file:</p>
+<p>Load configuration settings from .conf file if present and display ncurses-based
+menu based on default configuration input file &quot;input.nct&quot; and write the
+changes back to .conf file:</p>
 <pre class="literal-block">
 nct menu
 </pre>
-<p>Display ncurses based newer menu, read and write configuration changes to simple.nct:</p>
+<p>Display ncurses based newer menu, read and write configuration changes to simple.conf:</p>
 <pre class="literal-block">
-nct menu-n -c simple.nct
+nct menu-n -c simple.conf
 </pre>
-<p>Display Gtk based menu using configuration input file &quot;simple.in&quot;, read and write configuration changes to &quot;.nct&quot;:</p>
+<p>Display Gtk based menu using configuration input file &quot;simple.nct&quot;, read and write configuration changes to &quot;.conf&quot;:</p>
 <pre class="literal-block">
-nct menu-g -i simple.in
+nct menu-g -i simple.nct
 </pre>
-<p>Display Qt based menu using input file &quot;simple.in&quot;, read and write configuration changes to simple.nct:</p>
+<p>Display Qt based menu using input file &quot;simple.nct&quot;, read and write configuration changes to simple.conf:</p>
 <pre class="literal-block">
-nct menu-q -c simple.nct -i simple.in
+nct menu-q -c simple.conf -i simple.nct
 </pre>
-<p>Generate C header file based on configuration settings read from &quot;.nct&quot;:</p>
+<p>Generate C header file based on configuration settings read from &quot;.conf&quot;:</p>
 <pre class="literal-block">
 nct gen -o simple.h
 </pre>
-<p>Generate XML file based on configuration settings read from simple.nct:</p>
+<p>Generate XML file based on configuration settings read from simple.conf:</p>
 <pre class="literal-block">
-nct gen -c simple.nct -o simple.xml
+nct gen -c simple.conf -o simple.xml
 </pre>
-<p>Generate Perl source file based on configuration settings read from &quot;.nct&quot;:</p>
+<p>Generate Perl source file based on configuration settings read from &quot;.conf&quot;:</p>
 <pre class="literal-block">
 nct gen -o simple.pl
 </pre>
-<p>Generate Python source file based on configuration settings read from &quot;.nct&quot;:</p>
+<p>Generate Python source file based on configuration settings read from &quot;.conf&quot;:</p>
 <pre class="literal-block">
 nct gen -o simple.py
 </pre>
-<p>Generate Golang source file based on configuration settings read from &quot;.nct&quot;:</p>
+<p>Generate Golang source file based on configuration settings read from &quot;.conf&quot;:</p>
 <pre class="literal-block">
 nct gen -o simple.go
 </pre>
-<p>Generate PHP source file based on configuration settings read from simple.nct:</p>
+<p>Generate PHP source file based on configuration settings read from simple.conf:</p>
 <pre class="literal-block">
-nct gen -c simple.nct -o simple.php
+nct gen -c simple.conf -o simple.php
 </pre>
-<p>Generate Ruby source file based on configuration settings read from &quot;.nct&quot;:</p>
+<p>Generate Ruby source file based on configuration settings read from &quot;.conf&quot;:</p>
 <pre class="literal-block">
 nct gen -o simple.rb
 </pre>
-<p>Generate JavaScript source file based on configuration settings read from &quot;.nct&quot;:</p>
+<p>Generate JavaScript source file based on configuration settings read from &quot;.conf&quot;:</p>
 <pre class="literal-block">
 nct gen -o simple.js
 </pre>
-<p>Merge configuration fragments present in other-feature.conf into &quot;.nct&quot;:</p>
+<p>Merge configuration fragments present in other-feature.conf into &quot;.conf&quot;:</p>
 <pre class="literal-block">
 nct merge -f other-feature.conf
 </pre>
-<p>Merge configuration fragments present in other-feature.conf into &quot;simple.nct&quot;:</p>
+<p>Merge configuration fragments present in other-feature.conf into &quot;simple.conf&quot;:</p>
 <pre class="literal-block">
 nct merge -c simple.conf -f other-feature.conf
 </pre>
@@ -525,7 +538,7 @@ nct merge -c simple.conf -f other-feature.conf
 <h1>COPYRIGHT</h1>
 <p>Copyright © 2016 nCrux.
 License: GNU GPL version 2.
-This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to the extent permitted by law.</p>
+This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law.</p>
 </div>
 </div>
 </body>

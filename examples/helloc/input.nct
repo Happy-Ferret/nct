@@ -21,7 +21,7 @@ config PKG_VER
 endmenu
 
 
-include "src/nct.in"
+include "src/main.nct"
 
 
 maintitle "Back to My Title"

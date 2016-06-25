@@ -11,12 +11,13 @@
 
 export PKGNAME=`basename $2 | sed -e 's/.go$//g'`
 
-awk -v pkg_name=$PKGNAME '
+awk -v pkg_name=$PKGNAME -v NCT_PREFIX="$NCT_PREFIX" -v MATCH_EXP="^$NCT_PREFIX" '
 BEGIN {
 	add_quotes_to_int = 1;
 	add_quotes_to_hex = 1;
 	convert_hex_to_int = 0;
-	printf "package " pkg_name "\n//\n//\n// Automatically generated file using nCrux Configuration Tool (nct)\n// DO NOT EDIT.\n//\n//\n";
+	printf "package " pkg_name "\n//\n//\n// Automatically generated file using nCrux Configuration Tool (nct)\n";
+	printf "// http://www.ncrux.com/project/nct/\n// DO NOT EDIT.\n//\n//\n";
 	print "var Config = map[string]string {\n";
 }
 
@@ -31,12 +32,12 @@ END {
 /^#/ { next; }
 
 # Split valid lines into two words: w1 and w2
-/^NCT_/ {
+$0 ~ MATCH_EXP {
 
 	i = index($0, "=");
 
-	# Strip off NCT_ prefix
-	w1 = substr($0, 5, i-5);
+	# Strip off NCT_PREFIX
+	w1 = substr($0, length(NCT_PREFIX)+1, i-length(NCT_PREFIX)-1);
 	w2 = substr($0, i+1);
 
 	if (w2 ~ /^0x/) {
@@ -70,7 +71,7 @@ END {
 }
 
 # Golang File with key/value pairs in a map
-/^NCT_/ {
+$0 ~ MATCH_EXP {
 	print "\t\"" w1 "\" : " w2 ",";
 	next;
 }

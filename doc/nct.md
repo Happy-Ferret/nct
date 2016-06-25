@@ -6,7 +6,7 @@
 Menu driven tool to configure build settings of a project
 ---------------------------------------------------------
 
-:Date:   13 Jun 2016
+:Date:   25 Jun 2016
 :Version: 0.2.0
 :Manual section: 1
 :Manual group: nCrux Configuration Tool
@@ -15,13 +15,13 @@ Menu driven tool to configure build settings of a project
 SYNOPSIS
 ========
 
-nct [nomenu] [-m|--mode {update|alldef|allno|allyes|random}] [-c|--config config_file] [-i|--input config_input_file]
+nct [nomenu] [-m|--mode {update|alldef|allno|allyes|random}] [-c|--config config_file] [-i|--input config_input_file] [-p|--prefix prefix_str]
 
-nct {menu|menu-n|menu-g|menu-q} [-c|--config config_file] [-i|--input config_input_file]
+nct {menu|menu-n|menu-g|menu-q} [-c|--config config_file] [-i|--input config_input_file] [-p|--prefix prefix_str]
 
-nct gen [-c|--config config_file] [-o|--output output_file]
+nct gen [-c|--config config_file] [-o|--output output_file] [-p|--prefix prefix_str]
 
-nct merge [-c|--config config_file] [-f|--fragment fragment_config_file]
+nct merge [-c|--config config_file] [-f|--fragment fragment_config_file] [-p|--prefix prefix_str]
 
 nct help
 
@@ -62,13 +62,16 @@ help	Display command usage information.
   **random**	Disregard existing configuration and randomly select boolean and tristate configuration elements.
 
 -c config_file, --config config_file
- File containing current selection of configuration settings. The file ".nct" is assumed if this option is not given. In case if user saves the modified settings, this file gets overwritten with new settings.
+ File containing current selection of configuration settings. The file ".conf" is assumed if this option is not given. In case if user saves the modified settings, this file gets overwritten with new settings.
 
 -i config_input_file, --input config_input_file
- Top level configuration input file used for menu interface. The file "nct.in" is assumed if this option is not given.
+ Top level configuration input file used for menu interface. The file "input.nct" is assumed if this option is not given.
 
 -f fragment_config_file, --fragment fragment_config_file
  File containing partial configuration settings that need to be merged into main configuration file provided with option "-c".
+
+-p prefix_str, --prefix prefix_str
+ Prefix to be used for each configuration variable. Default is "NCT_".
 
 -o output_file, --output output_file
  File to which generated output needs to be written. File extension of output_file is recognized and appropriate code is generated. Recognized file extensions are:
@@ -94,77 +97,84 @@ help	Display command usage information.
 
 EXAMPLES
 ========
-Overwrite existing configuration file ".nct" with all default values selected for all configuration
-elements::
-
-	nct -m alldef
-
-Retain existing configuration of file ".nct" and select default values for all new configuration element::
+Update existing configuration file ".conf", if available, by retaining existing configuration
+ settings and selecting defaults for any new settings:
 
 	nct
 	(or)
 	nct -m update
 
-Overwrite existing configuration file ".nct" with all random values selected for all configuration
+Overwrite existing configuration file ".conf" with all default values selected for all configuration
+elements::
+
+	nct -m alldef
+
+Retain existing configuration of file ".conf" and select default values for all new configuration element::
+
+	nct
+	(or)
+	nct -m update
+
+Overwrite existing configuration file ".conf" with all random values selected for all configuration
 elements::
 
 	nct -m random
 
-Load configuration settings from .nct file if present and display ncurses-based
-menu based on default configuration input file "nct.in" and write the
-changes back to .nct file::
+Load configuration settings from .conf file if present and display ncurses-based
+menu based on default configuration input file "input.nct" and write the
+changes back to .conf file::
 
 	nct menu
 
-Display ncurses based newer menu, read and write configuration changes to simple.nct::
+Display ncurses based newer menu, read and write configuration changes to simple.conf::
 
-	nct menu-n -c simple.nct
+	nct menu-n -c simple.conf
 
-Display Gtk based menu using configuration input file "simple.in", read and write configuration changes to ".nct"::
+Display Gtk based menu using configuration input file "simple.nct", read and write configuration changes to ".conf"::
 
-	nct menu-g -i simple.in
+	nct menu-g -i simple.nct
 
-Display Qt based menu using input file "simple.in", read and write configuration changes to simple.nct::
+Display Qt based menu using input file "simple.nct", read and write configuration changes to simple.conf::
 
-	nct menu-q -c simple.nct -i simple.in
+	nct menu-q -c simple.conf -i simple.nct
 
-Generate C header file based on configuration settings read from ".nct"::
+Generate C header file based on configuration settings read from ".conf"::
 
 	nct gen -o simple.h
 
-Generate XML file based on configuration settings read from simple.nct::
+Generate XML file based on configuration settings read from simple.conf::
 
-	nct gen -c simple.nct -o simple.xml
+	nct gen -c simple.conf -o simple.xml
 
-Generate Perl source file based on configuration settings read from ".nct"::
+Generate Perl source file based on configuration settings read from ".conf"::
 
 	nct gen -o simple.pl
 
-Generate Python source file based on configuration settings read from ".nct"::
+Generate Python source file based on configuration settings read from ".conf"::
 
 	nct gen -o simple.py
 
-Generate Golang source file based on configuration settings read from ".nct"::
+Generate Golang source file based on configuration settings read from ".conf"::
 
 	nct gen -o simple.go
 
-Generate PHP source file based on configuration settings read from simple.nct::
+Generate PHP source file based on configuration settings read from simple.conf::
 
-	nct gen -c simple.nct -o simple.php
+	nct gen -c simple.conf -o simple.php
 
-Generate Ruby source file based on configuration settings read from ".nct"::
+Generate Ruby source file based on configuration settings read from ".conf"::
 
 	nct gen -o simple.rb
 
-Generate JavaScript source file based on configuration settings read from ".nct"::
+Generate JavaScript source file based on configuration settings read from ".conf"::
 
 	nct gen -o simple.js
 
-Merge configuration fragments present in other-feature.conf into ".nct"::
+Merge configuration fragments present in other-feature.conf into ".conf"::
 
 	nct merge -f other-feature.conf
 
-Merge configuration fragments present in other-feature.conf into "simple.nct"::
+Merge configuration fragments present in other-feature.conf into "simple.conf"::
 
 	nct merge -c simple.conf -f other-feature.conf
 
@@ -191,6 +201,6 @@ COPYRIGHT
 =========
 Copyright © 2016 nCrux. 
 License: GNU GPL version 2.
-This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to the extent permitted by law.
+This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law.
 
 

@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH NCT 1 "13 Jun 2016" "0.2.0" "nCrux Configuration Tool"
+.TH NCT 1 "25 Jun 2016" "0.2.0" "nCrux Configuration Tool"
 .SH NAME
 nct \- Menu driven tool to configure build settings of a project
 .
@@ -32,13 +32,13 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 ..
 .SH SYNOPSIS
 .sp
-nct [nomenu] [\-m|\-\-mode {update|alldef|allno|allyes|random}] [\-c|\-\-config config_file] [\-i|\-\-input config_input_file]
+nct [nomenu] [\-m|\-\-mode {update|alldef|allno|allyes|random}] [\-c|\-\-config config_file] [\-i|\-\-input config_input_file] [\-p|\-\-prefix prefix_str]
 .sp
-nct {menu|menu\-n|menu\-g|menu\-q} [\-c|\-\-config config_file] [\-i|\-\-input config_input_file]
+nct {menu|menu\-n|menu\-g|menu\-q} [\-c|\-\-config config_file] [\-i|\-\-input config_input_file] [\-p|\-\-prefix prefix_str]
 .sp
-nct gen [\-c|\-\-config config_file] [\-o|\-\-output output_file]
+nct gen [\-c|\-\-config config_file] [\-o|\-\-output output_file] [\-p|\-\-prefix prefix_str]
 .sp
-nct merge [\-c|\-\-config config_file] [\-f|\-\-fragment fragment_config_file]
+nct merge [\-c|\-\-config config_file] [\-f|\-\-fragment fragment_config_file] [\-p|\-\-prefix prefix_str]
 .sp
 nct help
 .SH DESCRIPTION
@@ -80,13 +80,16 @@ This option is valid only for "nomenu" sub\-command. Following are the modes sup
 .UNINDENT
 .TP
 .BI \-c \ config_file\fP,\fB \ \-\-config \ config_file
-File containing current selection of configuration settings. The file ".nct" is assumed if this option is not given. In case if user saves the modified settings, this file gets overwritten with new settings.
+File containing current selection of configuration settings. The file ".conf" is assumed if this option is not given. In case if user saves the modified settings, this file gets overwritten with new settings.
 .TP
 .BI \-i \ config_input_file\fP,\fB \ \-\-input \ config_input_file
-Top level configuration input file used for menu interface. The file "nct.in" is assumed if this option is not given.
+Top level configuration input file used for menu interface. The file "input.nct" is assumed if this option is not given.
 .TP
 .BI \-f \ fragment_config_file\fP,\fB \ \-\-fragment \ fragment_config_file
 File containing partial configuration settings that need to be merged into main configuration file provided with option "\-c".
+.TP
+.BI \-p \ prefix_str\fP,\fB \ \-\-prefix \ prefix_str
+Prefix to be used for each configuration variable. Default is "\fI\%NCT\fP".
 .TP
 .BI \-o \ output_file\fP,\fB \ \-\-output \ output_file
 File to which generated output needs to be written. File extension of output_file is recognized and appropriate code is generated. Recognized file extensions are:
@@ -114,8 +117,20 @@ File to which generated output needs to be written. File extension of output_fil
 Display this command usage.
 .UNINDENT
 .SH EXAMPLES
+.INDENT 0.0
+.TP
+.B Update existing configuration file ".conf", if available, by retaining existing configuration
+settings and selecting defaults for any new settings:
+.INDENT 7.0
+.INDENT 3.5
+nct
+(or)
+nct \-m update
+.UNINDENT
+.UNINDENT
+.UNINDENT
 .sp
-Overwrite existing configuration file ".nct" with all default values selected for all configuration
+Overwrite existing configuration file ".conf" with all default values selected for all configuration
 elements:
 .INDENT 0.0
 .INDENT 3.5
@@ -128,7 +143,7 @@ nct \-m alldef
 .UNINDENT
 .UNINDENT
 .sp
-Retain existing configuration of file ".nct" and select default values for all new configuration element:
+Retain existing configuration of file ".conf" and select default values for all new configuration element:
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -142,7 +157,7 @@ nct \-m update
 .UNINDENT
 .UNINDENT
 .sp
-Overwrite existing configuration file ".nct" with all random values selected for all configuration
+Overwrite existing configuration file ".conf" with all random values selected for all configuration
 elements:
 .INDENT 0.0
 .INDENT 3.5
@@ -155,9 +170,9 @@ nct \-m random
 .UNINDENT
 .UNINDENT
 .sp
-Load configuration settings from .nct file if present and display ncurses\-based
-menu based on default configuration input file "nct.in" and write the
-changes back to .nct file:
+Load configuration settings from .conf file if present and display ncurses\-based
+menu based on default configuration input file "input.nct" and write the
+changes back to .conf file:
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -169,43 +184,43 @@ nct menu
 .UNINDENT
 .UNINDENT
 .sp
-Display ncurses based newer menu, read and write configuration changes to simple.nct:
+Display ncurses based newer menu, read and write configuration changes to simple.conf:
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .nf
 .ft C
-nct menu\-n \-c simple.nct
+nct menu\-n \-c simple.conf
 .ft P
 .fi
 .UNINDENT
 .UNINDENT
 .sp
-Display Gtk based menu using configuration input file "simple.in", read and write configuration changes to ".nct":
+Display Gtk based menu using configuration input file "simple.nct", read and write configuration changes to ".conf":
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .nf
 .ft C
-nct menu\-g \-i simple.in
+nct menu\-g \-i simple.nct
 .ft P
 .fi
 .UNINDENT
 .UNINDENT
 .sp
-Display Qt based menu using input file "simple.in", read and write configuration changes to simple.nct:
+Display Qt based menu using input file "simple.nct", read and write configuration changes to simple.conf:
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .nf
 .ft C
-nct menu\-q \-c simple.nct \-i simple.in
+nct menu\-q \-c simple.conf \-i simple.nct
 .ft P
 .fi
 .UNINDENT
 .UNINDENT
 .sp
-Generate C header file based on configuration settings read from ".nct":
+Generate C header file based on configuration settings read from ".conf":
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -217,19 +232,19 @@ nct gen \-o simple.h
 .UNINDENT
 .UNINDENT
 .sp
-Generate XML file based on configuration settings read from simple.nct:
+Generate XML file based on configuration settings read from simple.conf:
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .nf
 .ft C
-nct gen \-c simple.nct \-o simple.xml
+nct gen \-c simple.conf \-o simple.xml
 .ft P
 .fi
 .UNINDENT
 .UNINDENT
 .sp
-Generate Perl source file based on configuration settings read from ".nct":
+Generate Perl source file based on configuration settings read from ".conf":
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -241,7 +256,7 @@ nct gen \-o simple.pl
 .UNINDENT
 .UNINDENT
 .sp
-Generate Python source file based on configuration settings read from ".nct":
+Generate Python source file based on configuration settings read from ".conf":
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -253,7 +268,7 @@ nct gen \-o simple.py
 .UNINDENT
 .UNINDENT
 .sp
-Generate Golang source file based on configuration settings read from ".nct":
+Generate Golang source file based on configuration settings read from ".conf":
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -265,19 +280,19 @@ nct gen \-o simple.go
 .UNINDENT
 .UNINDENT
 .sp
-Generate PHP source file based on configuration settings read from simple.nct:
+Generate PHP source file based on configuration settings read from simple.conf:
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .nf
 .ft C
-nct gen \-c simple.nct \-o simple.php
+nct gen \-c simple.conf \-o simple.php
 .ft P
 .fi
 .UNINDENT
 .UNINDENT
 .sp
-Generate Ruby source file based on configuration settings read from ".nct":
+Generate Ruby source file based on configuration settings read from ".conf":
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -289,7 +304,7 @@ nct gen \-o simple.rb
 .UNINDENT
 .UNINDENT
 .sp
-Generate JavaScript source file based on configuration settings read from ".nct":
+Generate JavaScript source file based on configuration settings read from ".conf":
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -301,7 +316,7 @@ nct gen \-o simple.js
 .UNINDENT
 .UNINDENT
 .sp
-Merge configuration fragments present in other\-feature.conf into ".nct":
+Merge configuration fragments present in other\-feature.conf into ".conf":
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -313,7 +328,7 @@ nct merge \-f other\-feature.conf
 .UNINDENT
 .UNINDENT
 .sp
-Merge configuration fragments present in other\-feature.conf into "simple.nct":
+Merge configuration fragments present in other\-feature.conf into "simple.conf":
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -342,6 +357,6 @@ You can report bugs at <\fI\%https://github.com/ncrux/nct/issues\fP>
 .sp
 Copyright © 2016 nCrux.
 License: GNU GPL version 2.
-This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to the extent permitted by law.
+This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law.
 .\" Generated by docutils manpage writer.
 .
