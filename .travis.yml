@@ -13,7 +13,7 @@ addons:
     - python
     - nodejs
 script:
-- fakeroot make deb && sudo dpkg -i nct.deb && make test
+- fakeroot make deb && sudo dpkg -i nct*.deb && make test
 deploy:
   provider: releases
   api_key:
