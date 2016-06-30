@@ -19,7 +19,7 @@ install: all
 deb: install
 	mkdir -p $(DESTDIR)/DEBIAN
 	cp package/debian/control $(DESTDIR)/DEBIAN/
-	dpkg-deb --build $(DESTDIR) nct.deb
+	dpkg-deb --build $(DESTDIR) nct_`cat VERSION`_amd64.deb
 
 rpm: install
 	rm -rf RPMS

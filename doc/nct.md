@@ -6,8 +6,8 @@
 Menu driven tool to configure build settings of a project
 ---------------------------------------------------------
 
-:Date:   25 Jun 2016
-:Version: 0.2.0
+:Date:   30 Jun 2016
+:Version: 0.2.1
 :Manual section: 1
 :Manual group: nCrux Configuration Tool
 
