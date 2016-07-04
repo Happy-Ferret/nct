@@ -9,11 +9,20 @@
 # Generates C Header file for a given configuration file
 #
 
-awk '
+H_DEF=__`basename $2 | tr '.-' '_'| tr  '[:lower:]' '[:upper:]'`
+
+awk -v H_DEF=$H_DEF '
 BEGIN {
 	FS = "=";
 	printf "/*\n *\n * Automatically generated file using nCrux Configuration Tool (nct).\n";
 	printf " * http://www.ncrux.com/project/nct/\n * DO NOT EDIT.\n *\n */\n";
+	printf "#ifndef " H_DEF "\n#define " H_DEF "\n";
+	printf "\n#ifdef __cplusplus\nextern \"C\" {\n#endif\n\n";
+}
+
+END {
+	printf "\n#ifdef __cplusplus\n}\n#endif\n\n";
+	printf "#endif /* " H_DEF " */";
 }
 
 # Ignore blank lines

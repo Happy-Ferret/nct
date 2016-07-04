@@ -648,11 +648,13 @@ static void conf_write_symbol(FILE *fp, struct symbol *sym,
 static void
 conf_write_heading(FILE *fp, struct conf_printer *printer, void *printer_arg)
 {
-	char buf[256];
+	char buf[1024];
 
 	snprintf(buf, sizeof(buf),
 	    "\n"
-	    "Automatically generated file; DO NOT EDIT.\n"
+	    "Automatically generated file using nCrux Configuration Tool (nct).\n"
+	    "http://www.ncrux.com/project/nct/\n\n"
+	    "DO NOT EDIT.\n\n"
 	    "%s\n",
 	    rootmenu.prompt->text);
 
