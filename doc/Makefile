@@ -14,6 +14,7 @@ install:
 	sed -i 's|^:Date:.*$$|:Date: $(shell date +"%d %b %Y")|' .nct.md
 	rst2html .nct.md .nct.html
 	rst2man .nct.md .nct.1
+	#rst2pdf nct.md -o nct.pdf
 	install -D -m 0644 .nct.1 $(MANPATH)/man1/nct.1
 	install -D -m 0644 .nct.html $(DOCPATH)/nct.html
 	gzip -n -9 -f $(MANPATH)/man1/nct.1
