@@ -17,7 +17,7 @@ addons:
     - nodejs
     - php5
 script:
-- if [ ! -f /usr/bin/php ]; then ln -s `which php5` /usr/bin/php; fi
+- if [ ! -f /usr/bin/php ]; then ln -s `which php5.0` /usr/bin/php; fi
 - fakeroot make deb && fakeroot make rpm && sudo dpkg -i nct*.deb && make -C examples; make test
 deploy:
   provider: releases
