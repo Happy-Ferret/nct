@@ -1,4 +1,10 @@
 
+#PKGVER=$(shell git describe --tags | sed -e 's|^v||g' -e 's|-|_|g')
+
+#PKGVER=$(shell git describe --tags | sed -e 's|^v||g' -e 's|-.*-g|.|g')
+PKGVER=$(shell git describe --tags | sed -e 's|^v||g' -e 's|-.*-|.|g')
+export PKGVER
+
 DESTDIR=$(shell pwd)/.install
 export DESTDIR
 
@@ -11,26 +17,31 @@ install: all
 	$(MAKE) -C src install
 	$(MAKE) -C scripts install
 	$(MAKE) -C doc install
-	@mkdir -p $(DESTDIR)/usr/share/doc/nct/
-	cp -ar examples $(DESTDIR)/usr/share/doc/nct/
-	chown -R root.root $(DESTDIR)/usr/share/doc/nct/
+	#install -m 755 -d $(DESTDIR)/usr/share/doc/nct/
+	find examples/ -type f | xargs -i install -D -m 644 {} $(DESTDIR)/usr/share/doc/nct/{}
+	find $(DESTDIR)/usr/share/doc/nct/examples -type f -name .gitignore | xargs rm -f
 	@$(MAKE) -C $(DESTDIR)/usr/share/doc/nct/examples clean
 
 deb: install
 	mkdir -p $(DESTDIR)/DEBIAN
-	cp package/debian/control $(DESTDIR)/DEBIAN/
-	dpkg-deb --build $(DESTDIR) nct_`cat VERSION`_amd64.deb
+	sed 's|^Version:.*$$|Version: $(PKGVER)|' package/debian/control > $(DESTDIR)/DEBIAN/control
+	dpkg-deb --build $(DESTDIR) nct_$(PKGVER)_amd64.deb
+	rm -rf $(DESTDIR)/DEBIAN
 
 rpm: install
 	rm -rf RPMS
 	mkdir -p RPMS
-	rpmbuild -bb package/rpm/nct.spec --buildroot=`readlink -e $(DESTDIR)`
+	sed 's|^Version:.*$$|Version: $(PKGVER)|' package/rpm/nct.spec > .nct.spec
+	rpmbuild -bb .nct.spec --buildroot=`readlink -e $(DESTDIR)`
 	mv `find RPMS -name \*.rpm` .
 	rm -rf RPMS
-
+	rm -f .nct.spec
 
 deb-check:
-	lintian nct.deb
+	lintian nct_$(PKGVER)_amd64.deb
+
+rpm-check:
+	rpmlint nct*.rpm
 
 clean:
 	$(MAKE) -C src clean

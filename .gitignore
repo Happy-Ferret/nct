@@ -4,3 +4,4 @@ cscope.out
 *.deb
 RPMS
 *.rpm
+*.old
