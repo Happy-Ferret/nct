@@ -1,7 +1,4 @@
 
-#PKGVER=$(shell git describe --tags | sed -e 's|^v||g' -e 's|-|_|g')
-
-#PKGVER=$(shell git describe --tags | sed -e 's|^v||g' -e 's|-.*-g|.|g')
 PKGVER=$(shell git describe --tags | sed -e 's|^v||g' -e 's|-.*-|.|g')
 export PKGVER
 
@@ -17,7 +14,6 @@ install: all
 	$(MAKE) -C src install
 	$(MAKE) -C scripts install
 	$(MAKE) -C doc install
-	#install -m 755 -d $(DESTDIR)/usr/share/doc/nct/
 	find examples/ -type f | xargs -i install -D -m 644 {} $(DESTDIR)/usr/share/doc/nct/{}
 	find $(DESTDIR)/usr/share/doc/nct/examples -type f -name .gitignore | xargs rm -f
 	@$(MAKE) -C $(DESTDIR)/usr/share/doc/nct/examples clean
