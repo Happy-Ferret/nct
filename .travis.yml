@@ -24,8 +24,9 @@ deploy:
   api_key:
     secure: pj+ocNptGdFBU+GRtxMTQc5ZDonxS6kpxGVZ5Clm8MGjyhD0ZP5MZlwBwGBnPzvQYw9Hm8AZuMa3FGQXWXvGx8rdVlPvfkISTuvuWua3qCG4nXK4oke6KEOshnV7roEZm7Pn6PS3hefBJ4LvI+sLfJXR/7lBQ1FvWzK7kVjgTqVtcKxB4jNtJV4HWGrK9A04q+8v0f0rQiPkPZKsOjnHcWLkfXRli8xQdeWHZWzluAbn7K1m0Mhc1SgfEqaSU/aTltckKKwY84rHDUlmA5gpg4SGMkd8yEG/PB47lOdMXWSSqstV+s73/xql6jY5VzzioBt8nxJ1pvA75kBXeFNx+IJJ7edix+M3RbaKzRXuDEAlAYGc5z8fs3WTV03/EvYl4iku8kwyntTUhzI+f4MQ+euvsPvi3nrqKc0ZkeDxWRzFTO0s9+G2RsUOgJMvIzOQvDrc1khZIpx0cMlg3kui9dBzYib41IkrXhlIiCEy/fetJYrPxn9Ajp7MM8oOxpjbJ+RwTAw1zjUDNkn/HR/+92/fHI8dOrS6XJbSL3oW+tkFkOKb6L5QPmRH2o25UxTPzrStkmf9kugVf1C0o/6JxgjcyLWhqZkM0bYBzXVmJvWApO5hGiIs6LmmzPR7AIrSrgJPZ/Ha+KZHISAzgaZzxJDsGQTuzvvjkk0Nw5Tmr2M=
   file_glob: true
-  file: "*.deb"
-  file: "*.rpm"
+  file:
+    - "*.deb"
+    - "*.rpm"
   on:
     tags: true
     repo: ncrux/nct
