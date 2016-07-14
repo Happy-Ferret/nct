@@ -392,7 +392,7 @@ menu_block:
 source_stmt: T_SOURCE prompt T_EOL
 {
 	printd(DEBUG_PARSE, "%s:%d:source %s\n", zconf_curname(), zconf_lineno(), $2);
-	printd(PRINTD, "%s:%d: source is obsolete. Use \"include\" with relative path instead\n",
+	printd(PRINTD, "%s:%d: \"source\" is obsolete. Use \"include\" with relative path instead\n",
 			 zconf_curname(), zconf_lineno());
 	zconf_nextfile($2,1);
 };

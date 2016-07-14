@@ -14,7 +14,6 @@ NCT_FILE=.conf
 NCT_FRAG_FILE=
 NCT_IN_FILE=
 NOMENU_MODE=update
-#export NCT_PREFIX=NCT_
 export NCT_PREFIX=
 
 usage() {

@@ -85,7 +85,7 @@ endif
 
 test-rb: rb
 ifneq "$(shell which ruby)" ''
-	./test.rb
+	-./test.rb
 else
 	@echo Ruby is not found. Skipping
 endif

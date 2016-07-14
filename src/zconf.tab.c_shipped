@@ -1811,7 +1811,7 @@ yyreduce:
 
     {
 	printd(DEBUG_PARSE, "%s:%d:source %s\n", zconf_curname(), zconf_lineno(), (yyvsp[-1].string));
-	printd(PRINTD, "%s:%d: source is obsolete. Use \"include\" with relative path instead\n",
+	printd(PRINTD, "%s:%d: \"source\" is obsolete. Use \"include\" with relative path instead\n",
 			 zconf_curname(), zconf_lineno());
 	zconf_nextfile((yyvsp[-1].string),1);
 }
