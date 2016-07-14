@@ -3,10 +3,10 @@
 
 int main(int argc, char *argv[])
 {
-	printf("MYBOOL = %d\n", NCT_MYBOOL);
-	printf("MYSTRING = %s\n", NCT_MYSTRING);
-	printf("MYTRISTATE = %d\n", NCT_MYTRISTATE);
-	printf("MYINT = %d\n", NCT_MYINT);
-	printf("MYHEX = 0x%x\n", NCT_MYHEX);
+	printf("MYBOOL = %d\n", SIM_MYBOOL);
+	printf("MYSTRING = %s\n", SIM_MYSTRING);
+	printf("MYTRISTATE = %d\n", SIM_MYTRISTATE);
+	printf("MYINT = %d\n", SIM_MYINT);
+	printf("MYHEX = 0x%x\n", SIM_MYHEX);
 	return 0;
 }

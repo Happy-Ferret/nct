@@ -71,7 +71,7 @@ help	Display command usage information.
  File containing partial configuration settings that need to be merged into main configuration file provided with option "-c".
 
 -p prefix_str, --prefix prefix_str
- Prefix to be used for each configuration variable. Default is "NCT_".
+ Prefix to be used for each configuration variable. By default, no prefix is used.
 
 -o output_file, --output output_file
  File to which generated output needs to be written. File extension of output_file is recognized and appropriate code is generated. Recognized file extensions are:

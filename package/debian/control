@@ -1,5 +1,5 @@
 Package: nct
-Version: 0.2.0
+Version: dummy
 Section: utils
 Priority: optional
 Architecture: amd64

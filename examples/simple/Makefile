@@ -2,8 +2,8 @@
 # Simple demonstration of nCrux Configuration Tool (nct)
 #
 CONF_FRAGMENT_FILE=frag.conf
-NCT=nct
-#NCT=nct --prefix "CONFIG_"
+#NCT=nct
+NCT=nct --prefix "SIM_"
 
 all: merge test-all
 
@@ -13,7 +13,7 @@ all: merge test-all
 	$(NCT)
 
 merge: .conf
-	$(NCT) merge -f $(CONF_FRAGMENT_FILE)
+	$(NCT) merge -p SIM_ -f $(CONF_FRAGMENT_FILE)
 
 gen-all: h pl py xml php go
 
@@ -49,25 +49,53 @@ test-h: h
 	./test
 
 test-pl: pl
+ifneq "$(shell which perl)" ''
 	perl test.pl
+else
+	@echo Perl is not found. Skipping
+endif
 
 test-py: py
+ifneq "$(shell which python)" ''
 	python test.py
+else
+	@echo Python is not found. Skipping
+endif
 
 test-xml: xml
+ifneq "$(shell which xmllint)" ''
 	xmllint simple_nct.xml
+else
+	@echo xmllint is not found. Skipping
+endif
 
 test-php: php
+ifneq "$(shell which php)" ''
 	php test.php
+else
+	@echo PHP is not found. Skipping
+endif
 
 test-go: go
+ifneq "$(shell which go)" ''
 	go run test.go
+else
+	@echo Golang is not found. Skipping
+endif
 
 test-rb: rb
+ifneq "$(shell which ruby)" ''
 	./test.rb
+else
+	@echo Ruby is not found. Skipping
+endif
 
 test-js: js
+ifneq "$(shell which nodejs)" ''
 	nodejs test.js
+else
+	@echo NodeJS is not found. Skipping
+endif
 
 
 clean:

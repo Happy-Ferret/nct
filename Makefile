@@ -43,8 +43,9 @@ clean:
 	$(MAKE) -C src clean
 	$(MAKE) -C scripts clean
 	$(MAKE) -C doc clean
+	$(MAKE) -C examples clean
 	rm -f *.rpm *.deb
 	rm -rf $(DESTDIR)
 
 test:
-	@echo Dummy rule
+	$(MAKE) -C examples

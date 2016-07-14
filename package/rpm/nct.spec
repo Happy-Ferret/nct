@@ -1,5 +1,5 @@
 Name:		nct
-Version:	0.2.0
+Version:	dummy
 Release:	1
 Summary:	Menu driven tool to configure build settings of a project
 

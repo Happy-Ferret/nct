@@ -6,19 +6,19 @@ endif
 TARGET=helloc
 OBJS=main.o
 
-ifneq ($(NCT_FEATURE1),)
+ifneq ($(FEATURE1),)
 OBJS += feature1.o
 endif
 
-ifneq ($(NCT_FEATURE2),)
+ifneq ($(FEATURE2),)
 OBJS += feature2.o
 endif
 
-ifneq ($(NCT_FEATURE3),)
+ifneq ($(FEATURE3),)
 OBJS += feature3/feature3.o
 endif
 
-ifneq ($(NCT_FEATURE4),)
+ifneq ($(FEATURE4),)
 OBJS += feature4/feature4.o
 endif
 

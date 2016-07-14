@@ -14,7 +14,8 @@ NCT_FILE=.conf
 NCT_FRAG_FILE=
 NCT_IN_FILE=
 NOMENU_MODE=update
-export NCT_PREFIX=NCT_
+#export NCT_PREFIX=NCT_
+export NCT_PREFIX=
 
 usage() {
 	cat <<EOF
@@ -187,7 +188,7 @@ merge)
 	if [ "$NCT_FRAG_FILE" == "" ]; then
 		echo Please provide configuration fragment file. Use "-f" option
 		exit 1
-	fi 
+	fi
 
 	if [ ! -f $NCT_FRAG_FILE ]; then
 		echo Configuration fragment file $NCT_FRAG_FILE is not present

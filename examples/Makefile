@@ -1,5 +1,5 @@
 
-SUBDIRS=simple
+SUBDIRS=simple helloc
 
 all: $(SUBDIRS)
 

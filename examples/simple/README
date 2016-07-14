@@ -9,7 +9,11 @@ Use the following instructions to build and test the project.
 
 Configure project based on classic menu.
 
-	$ nct menu
+	$ nct menu -p SIM_
+
+	(or)
+
+	$ make .conf		(non-interactive)
 
 Merge a configuration fragment to main configuration file.
 

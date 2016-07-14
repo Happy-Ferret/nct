@@ -3,5 +3,5 @@
 
 void feature3_greet(void)
 {
-	printf("%s\n", NCT_FEATURE3_MESSAGE);
+	printf("%s\n", FEATURE3_MESSAGE);
 }
