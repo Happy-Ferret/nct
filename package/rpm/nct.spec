@@ -1,7 +1,7 @@
 Name:		nct
 Version:	dummy
 Release:	1
-Summary:	Menu driven tool to configure build settings of a project
+Summary:	nCrux Configuration Tool
 
 License:	GPLv2
 URL:		http://www.ncrux.com/project/%{name}/
