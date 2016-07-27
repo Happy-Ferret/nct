@@ -4,6 +4,7 @@ stages:
 
 before_script:
   - apt-get update -qq
+  - apt-get install -y -qq gawk
   - apt-get install -y -qq fakeroot docutils-common
   - apt-get install -y -qq rst2pdf python-docutils lintian rpm
   - apt-get install -y -qq ncurses-dev bison flex
