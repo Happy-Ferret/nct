@@ -15,7 +15,7 @@ build_job:
   stage: build
   script:
   - fakeroot make deb
-  - dpkg -i nut*.deb
+  - dpkg -i *.deb
   - make test && make test-run
 
 deploy_job:
