@@ -1,0 +1,30 @@
+stages:
+- build
+- deploy
+
+before_script:
+  - apt-get update -qq
+  - apt-get install -y -qq fakeroot docutils-common
+  - apt-get install -y -qq rst2pdf python-docutils lintian rpm
+  - apt-get install -y -qq ncurses-dev bison flex
+  - apt-get install -y -qq libglade2-dev
+  - apt-get install -y -qq golang perl python
+  - apt-get install -y -qq nodejs php5
+
+build_job:
+  stage: build
+  script:
+  - fakeroot make deb
+  - dpkg -i nut*.deb
+  - make test && make test-run
+
+deploy_job:
+  stage: deploy
+  script:
+  - make deb && make rpm
+  - rm -rf deploy
+  - mkdir deploy
+  - mv *.deb *.rpm deploy/
+  artifacts:
+    paths:
+      - deploy

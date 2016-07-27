@@ -2,6 +2,9 @@
 all: src/helloc_nct.h
 	$(MAKE) -C src
 
+run:
+	$(MAKE) -C src run
+
 .conf: input.nct src/main.nct
 	nct
 

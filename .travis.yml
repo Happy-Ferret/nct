@@ -18,7 +18,7 @@ addons:
     - php5
 script:
 - if [ ! -f /usr/bin/php ]; then ln -s `which php5.0` /usr/bin/php; fi
-- fakeroot make deb && fakeroot make rpm && sudo dpkg -i nct*.deb && make test
+- fakeroot make deb && fakeroot make rpm && sudo dpkg -i nct*.deb && make test && make test-run
 deploy:
   provider: releases
   api_key:

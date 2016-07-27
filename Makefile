@@ -49,3 +49,6 @@ clean:
 
 test:
 	$(MAKE) -C examples
+
+test-run:
+	$(MAKE) -C examples run

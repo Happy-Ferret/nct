@@ -5,7 +5,7 @@ CONF_FRAGMENT_FILE=frag.conf
 #NCT=nct
 NCT=nct --prefix "SIM_"
 
-all: merge test-all
+all: merge gen-all
 
 .PHONY: .conf
 
@@ -15,7 +15,7 @@ all: merge test-all
 merge: .conf
 	$(NCT) merge -p SIM_ -f $(CONF_FRAGMENT_FILE)
 
-gen-all: h pl py xml php go
+gen-all: h pl py xml php go rb js
 
 h:
 	$(NCT) gen -o simple_nct.h
@@ -42,55 +42,55 @@ rb:
 js:
 	$(NCT) gen -o simple_nct.js
 
-test-all: test-h test-pl test-py test-xml test-php test-go test-rb test-js
+run: test-h test-pl test-py test-xml test-php test-go test-rb test-js
 
-test-h: h
+test-h:
 	$(CC) test.c -o test
 	./test
 
-test-pl: pl
+test-pl:
 ifneq "$(shell which perl)" ''
 	perl test.pl
 else
 	@echo Perl is not found. Skipping
 endif
 
-test-py: py
+test-py:
 ifneq "$(shell which python)" ''
 	python test.py
 else
 	@echo Python is not found. Skipping
 endif
 
-test-xml: xml
+test-xml:
 ifneq "$(shell which xmllint)" ''
 	xmllint simple_nct.xml
 else
 	@echo xmllint is not found. Skipping
 endif
 
-test-php: php
+test-php:
 ifneq "$(shell which php)" ''
 	php test.php
 else
 	@echo PHP is not found. Skipping
 endif
 
-test-go: go
+test-go:
 ifneq "$(shell which go)" ''
 	go run test.go
 else
 	@echo Golang is not found. Skipping
 endif
 
-test-rb: rb
+test-rb:
 ifneq "$(shell which ruby)" ''
 	-./test.rb
 else
 	@echo Ruby is not found. Skipping
 endif
 
-test-js: js
+test-js:
 ifneq "$(shell which nodejs)" ''
 	nodejs test.js
 else
