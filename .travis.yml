@@ -30,3 +30,6 @@ deploy:
   on:
     tags: true
     repo: ncrux/nct
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
