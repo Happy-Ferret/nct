@@ -1,6 +1,6 @@
 # nCrux Configuration Tool (nct)
 
-[![BSD license](https://img.shields.io/badge/License-GPLv2-blue.svg)](https://opensource.org/licenses/GPL-2.0)
+[![GPLv2 license](https://img.shields.io/badge/License-GPLv2-blue.svg)](https://opensource.org/licenses/GPL-2.0)
 [![Build Status](https://api.travis-ci.org/ncrux/nct.svg?branch=master)](https://travis-ci.org/ncrux/nct)
 [![codecov.io](https://codecov.io/github/ncrux/nct/coverage.svg?branch=master)](https://codecov.io/github/ncrux/nct?branch=master)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/9711/badge.svg)](https://scan.coverity.com/projects/ncrux-nct)

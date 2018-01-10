@@ -24,43 +24,10 @@ screen -t misc
 #
 # Key Bindings
 #
-
-# Ctrl + Up -- Next Region
-#bindkey "\033[1;5A" focus
-bindkey "^[[1;5A" focus
-
-# Ctrl + Down -- Prev Layout
-#bindkey "\033[1;5B" focus
-bindkey "^[[1;5B" focus
-
-# Ctrl + Right -- Next Shell
-#bindkey "\033[1;5C" next
 bindkey "^[[1;5C" next
-
-# Ctrl + Left -- Prev Shell
-#bindkey "\033[1;5D" prev 
 bindkey "^[[1;5D" prev
-
-# Alt + Up -- Next Layout
-bindkey "^[[1;3A" layout next
-
-# Alt + Down -- Prev Layout
-bindkey "^[[1;3B" layout prev
-
 
 #
 # Status Bar
 #
-caption always '%{= Mk}  %-w%{.mk}%{.Gk}%n %t%{.mW}%{.Mk}%+w %=%{.kW}%C '
-
-
-layout new "vb2"
-split -v
-focus
-split
-focus
-
-layout new "defa"
-
-layout select "defa"
-next
+caption always 'C%{= Mk}  %-w%{.mk}%{.Gk}%n %t%{.mW}%{.Mk}%+w %=%{.kW}%C '
