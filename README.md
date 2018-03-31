@@ -11,7 +11,7 @@ This tool is based on kconfig tool available as part of standard Linux kernel so
 
 ## Syntax
 ```console
-nct [nomenu] [-m|--mode {update|alldef|allno|allyes|random}] [-c|--config config_file] [-i|--input config_input_file] [-p|--prefix prefix_str]
+nct [nomenu] [-m|--mode {update|alldef|allno|allyes|random}] [-c|--config config_file] [-i|--input config_input_file] [-p|--prefix prefix_str] [-s|--seed random_seed]
 
 nct {menu|menu-n|menu-g|menu-q} [-c|--config config_file] [-i|--input config_input_file] [-p|--prefix prefix_str]
 
@@ -78,6 +78,10 @@ File containing partial configuration settings that need to be merged into main 
 * **-p prefix_str, --prefix prefix_str**
 Prefix to be used for each configuration variable. By default, no prefix is used.
 
+* **-s random_seed, --seed *
+Fixed seed to be used while generating random configuration. This can be used to create
+exactly same configuration file.
+
 * **-o output_file, --output output_file**
 File to which generated output needs to be written. File extension of output_file is recognized and appropriate code is generated. Recognized file extensions are:
 	* `h`
@@ -111,11 +115,11 @@ Display this command usage.
 
 * Update existing configuration file `.conf`, if available, by retaining existing configuration settings and selecting defaults for any new settings.
 
-  `nct`
+	`nct`
 
 * Overwrite existing configuration file `.conf` with all default values selected for all configuration elements.
 
-  `nct -m alldef`
+	`nct -m alldef`
 
 * Read and retain existing configuration of file `.conf`, select default values for all new configuration element and write back configuration to `.conf`.
 

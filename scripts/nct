@@ -19,7 +19,7 @@ export NCT_PREFIX=
 usage() {
 	cat <<EOF
 Usage:
-	$PROG_NAME [nomenu] [-m|--mode {update|alldef|allno|allyes|random}] [-c|--config config_file] [-i|--input config_input_file] [-p|--prefix prefix_str]
+	$PROG_NAME [nomenu] [-m|--mode {update|alldef|allno|allyes|random}] [-c|--config config_file] [-i|--input config_input_file] [-p|--prefix prefix_str] [-s|--seed random_seed]
 
 	$PROG_NAME {menu|menu-n|menu-g|menu-q} [-c|--config config_file] [-i|--input config_input_file] [-p|--prefix prefix_str]
 
@@ -69,6 +69,11 @@ while true; do
 
 	-p | --prefix)
 		export NCT_PREFIX=$2
+		shift 2
+		;;
+
+	-s | --seed)
+		export NCT_NOMENU_SEED=$2
 		shift 2
 		;;
 

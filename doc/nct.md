@@ -15,7 +15,7 @@ Menu driven tool to configure build settings of a project
 SYNOPSIS
 ========
 
-nct [nomenu] [-m|--mode {update|alldef|allno|allyes|random}] [-c|--config config_file] [-i|--input config_input_file] [-p|--prefix prefix_str]
+nct [nomenu] [-m|--mode {update|alldef|allno|allyes|random}] [-c|--config config_file] [-i|--input config_input_file] [-p|--prefix prefix_str] [-s|--seed random_seed]
 
 nct {menu|menu-n|menu-g|menu-q} [-c|--config config_file] [-i|--input config_input_file] [-p|--prefix prefix_str]
 
@@ -72,6 +72,9 @@ help	Display command usage information.
 
 -p prefix_str, --prefix prefix_str
  Prefix to be used for each configuration variable. By default, no prefix is used.
+
+-s random_seed, --seed ramdom_seed
+ Fixed seed to be used while generating random configuration. This can be used to create exactly same configuration file.
 
 -o output_file, --output output_file
  File to which generated output needs to be written. File extension of output_file is recognized and appropriate code is generated. Recognized file extensions are:
