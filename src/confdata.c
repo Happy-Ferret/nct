@@ -653,8 +653,14 @@ conf_write_heading(FILE *fp, struct conf_printer *printer, void *printer_arg)
 	snprintf(buf, sizeof(buf),
 	    "\n"
 	    "Automatically generated file using nCrux Configuration Tool (nct).\n"
-	    "http://www.ncrux.com/project/nct/\n\n"
-	    "DO NOT EDIT.\n\n"
+	    "http://www.ncrux.com/project/nct/\n"
+	    "DO NOT EDIT.\n");
+
+	printer->print_comment(fp, buf, printer_arg);
+
+	fprintf(fp, "\n");
+	snprintf(buf, sizeof(buf),
+	    "\n"
 	    "%s\n",
 	    rootmenu.prompt->text);
 

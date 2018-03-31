@@ -13,9 +13,8 @@ H_DEF=__`basename $2 | tr '.-' '_'| tr  '[:lower:]' '[:upper:]'`
 
 awk -v H_DEF=$H_DEF '
 BEGIN {
+	group_comment = 0;
 	FS = "=";
-	printf "/*\n *\n * Automatically generated file using nCrux Configuration Tool (nct).\n";
-	printf " * http://www.ncrux.com/project/nct/\n * DO NOT EDIT.\n *\n */\n";
 	printf "#ifndef " H_DEF "\n#define " H_DEF "\n";
 	printf "\n#ifdef __cplusplus\nextern \"C\" {\n#endif\n\n";
 }
@@ -28,8 +27,28 @@ END {
 # Ignore blank lines
 /^$/ { next; }
 
-# Ignore comments
-/^#/ { next; }
+# Beginning/End of group comment
+/^#$/ {
+	if (group_comment == 0) {
+		printf "\n/*\n";
+		group_comment = 1;
+	} else {
+		printf " */\n";
+		group_comment = 0;
+	}
+	next;
+}
+
+# Comments (Individual/Group comment)
+/^#/ {
+	gsub("^# ","");
+	if (group_comment) {
+		printf " * " $0 "\n";
+	} else {
+		printf "/* " $0 " */\n";
+	}
+	next;
+}
 
 # Split valid lines into two words: w1 and w2
 {
