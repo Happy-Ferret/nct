@@ -1,7 +1,7 @@
 # nct help
 
 ##Setting Menu/Window Title
-Place following in the top-level nct.in file.
+Place following in the top-level input.nct file.
 
 	mainmenu "MyProject Configuration"
 

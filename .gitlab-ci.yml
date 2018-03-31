@@ -10,7 +10,7 @@ before_script:
   - apt-get install -y -qq ncurses-dev bison flex
   - apt-get install -y -qq libglade2-dev
   - apt-get install -y -qq golang perl python
-  - apt-get install -y -qq nodejs php5
+  - apt-get install -y -qq nodejs php
 
 build_job:
   stage: build
