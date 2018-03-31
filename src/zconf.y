@@ -166,6 +166,7 @@ menuconfig_entry_start: T_MENUCONFIG T_WORD T_EOL
 {
 	struct symbol *sym = sym_lookup($2, 0);
 	sym->flags |= SYMBOL_OPTIONAL;
+	sym->flags |= SYMBOL_MENUCONFIG;
 	menu_add_entry(sym);
 	printd(DEBUG_PARSE, "%s:%d:menuconfig %s\n", zconf_curname(), zconf_lineno(), $2);
 };

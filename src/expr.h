@@ -115,6 +115,10 @@ struct symbol {
 /* Set symbol to y if allnoconfig; used for symbols that hide others */
 #define SYMBOL_ALLNOCONFIG_Y 0x200000
 
+/* Just to identify if the entry is related to menuconfig. This is used to
+   emit additional comments similar to "menu" entry */
+#define SYMBOL_MENUCONFIG 0x800000
+
 #define SYMBOL_MAXLENGTH	256
 #define SYMBOL_HASHSIZE		9973
 

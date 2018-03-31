@@ -804,6 +804,14 @@ int conf_write(const char *name)
 				goto next;
 			sym->flags &= ~SYMBOL_WRITE;
 
+			if (sym->flags & SYMBOL_MENUCONFIG) {
+				str = menu_get_prompt(menu);
+				fprintf(out, "\n"
+				     "#\n"
+				     "# %s\n"
+				     "#\n", str);
+			}
+
 			conf_write_symbol(out, sym, &kconfig_printer_cb, NULL);
 		}
 
